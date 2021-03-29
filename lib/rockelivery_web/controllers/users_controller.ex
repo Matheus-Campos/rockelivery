@@ -15,10 +15,18 @@ defmodule RockeliveryWeb.UsersController do
   end
 
   def show(conn, %{"id" => id}) do
-    with {:ok, %User{} = user} <- Rockelivery.get_userBy_id(id) do
+    with {:ok, %User{} = user} <- Rockelivery.get_user_by_id(id) do
       conn
       |> put_status(:ok)
       |> render("show.json", user: user)
+    end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    with {:ok, %User{} = user} <- Rockelivery.delete_user(id) do
+      conn
+      |> put_status(:no_content)
+      |> render("delete.json", user: user)
     end
   end
 end
