@@ -1,5 +1,5 @@
 defmodule Rockelivery.Users.CreateTest do
-  use Rockelivery.DataCase
+  use Rockelivery.DataCase, async: true
 
   import Rockelivery.Factory
 
