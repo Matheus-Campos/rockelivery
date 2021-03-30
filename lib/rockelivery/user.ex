@@ -29,12 +29,12 @@ defmodule Rockelivery.User do
     %__MODULE__{}
     |> cast(params, @required_params)
     |> validate_required(@required_params)
-    |> validate_length(:password_hash, min: 6)
+    |> validate_length(:password, min: 6)
     |> validate_struct()
     |> put_password_hash()
   end
 
-  def changeset(%__MODULE__{} = struct, params) do
+  def changeset(struct, params) do
     struct
     |> cast(params, @update_params)
     |> validate_struct()
