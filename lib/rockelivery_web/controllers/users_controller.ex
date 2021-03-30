@@ -6,6 +6,14 @@ defmodule RockeliveryWeb.UsersController do
 
   action_fallback FallbackController
 
+  def index(conn, _params) do
+    users = Rockelivery.get_users()
+
+    conn
+    |> put_status(:ok)
+    |> render("index.json", users: users)
+  end
+
   def create(conn, params) do
     with {:ok, %User{} = user} <- Rockelivery.create_user(params) do
       conn
