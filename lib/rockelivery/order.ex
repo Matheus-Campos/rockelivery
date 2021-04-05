@@ -3,9 +3,10 @@ defmodule Rockelivery.Order do
 
   import Ecto.Changeset
 
-  alias Rockelivery.{Item, User}
+  alias Rockelivery.{Item, OrderItem, User}
 
   @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
 
   @required_params [:address, :comments, :payment_method, :user_id]
   @payment_methods [:money, :credit_card, :debit_card]
@@ -15,15 +16,15 @@ defmodule Rockelivery.Order do
   schema "orders" do
     field :payment_method, Ecto.Enum, values: @payment_methods
     field :address, :string
-    field :comments, :decimal
+    field :comments, :string
 
-    many_to_many :items, Item, join_through: "orders_items"
+    many_to_many :items, Item, join_through: OrderItem
     belongs_to :user, User
 
     timestamps()
   end
 
-  def changeset(struct \\ %__MODULE__{}, params, [%Item{}] = items) do
+  def changeset(struct \\ %__MODULE__{}, params, [%Item{} | _tail] = items) do
     struct
     |> cast(params, @required_params)
     |> validate_required(@required_params)
