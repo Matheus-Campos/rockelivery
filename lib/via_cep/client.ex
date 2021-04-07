@@ -2,6 +2,7 @@ defmodule Rockelivery.ViaCep.Client do
   use Tesla
 
   alias Rockelivery.Error
+  alias Rockelivery.ViaCep.Response, as: ViaCepResponse
   alias Tesla.Env
 
   plug Tesla.Middleware.BaseUrl, "https://viacep.com.br/ws/"
@@ -18,7 +19,7 @@ defmodule Rockelivery.ViaCep.Client do
   end
 
   defp handle_get({:ok, %Env{status: 200, body: body}}) do
-    {:ok, body}
+    {:ok, ViaCepResponse.build(body)}
   end
 
   defp handle_get({:ok, %Env{status: 400, body: _body}}) do
