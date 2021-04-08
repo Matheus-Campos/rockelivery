@@ -8,17 +8,21 @@ defmodule Rockelivery.Users.CreateTest do
 
   describe "call/1" do
     test "when all params are valid, returns the user" do
-      params = build(:user_params)
-
-      response = Create.call(params)
+      response =
+        :user_params
+        |> build()
+        |> Enum.into(%{}, fn {key, value} -> {Atom.to_string(key), value} end)
+        |> Create.call()
 
       assert {:ok, %User{id: _id, age: 22, email: "silva.campos.matheus@gmail.com"}} = response
     end
 
     test "when there are invalid params, returns an error" do
-      params = build(:user_params, %{password: "123", age: 15})
-
-      response = Create.call(params)
+      response =
+        :user_params
+        |> build(%{password: "123", age: 15})
+        |> Enum.into(%{}, fn {key, value} -> {Atom.to_string(key), value} end)
+        |> Create.call()
 
       expected_response = %{
         age: ["must be greater than or equal to 18"],

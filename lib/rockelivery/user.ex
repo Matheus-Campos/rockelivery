@@ -48,7 +48,7 @@ defmodule Rockelivery.User do
 
   def changeset(struct, params) do
     struct
-    |> cast(params, @permitted_params)
+    |> cast(params, @update_params)
     |> validate_struct()
   end
 
