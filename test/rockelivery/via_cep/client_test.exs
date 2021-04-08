@@ -2,9 +2,10 @@ defmodule Rockelivery.ViaCep.ClientTest do
   use ExUnit.Case, async: true
 
   import Plug.Conn
+  import Rockelivery.Factory
 
   alias Rockelivery.Error
-  alias Rockelivery.ViaCep.{Client, Response}
+  alias Rockelivery.ViaCep.Client
 
   setup do
     bypass = Bypass.open()
@@ -39,7 +40,7 @@ defmodule Rockelivery.ViaCep.ClientTest do
 
       response = Client.get_cep_info(url, cep)
 
-      expected_response = {:ok, %Response{city: "São Paulo", uf: "SP"}}
+      expected_response = {:ok, build(:via_cep_response)}
 
       assert response == expected_response
     end

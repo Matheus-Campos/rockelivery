@@ -2,6 +2,7 @@ defmodule Rockelivery.Factory do
   use ExMachina.Ecto, repo: Rockelivery.Repo
 
   alias Rockelivery.User
+  alias Rockelivery.ViaCep.Response, as: ViaCepResponse
 
   def user_params_factory do
     %{
@@ -25,6 +26,13 @@ defmodule Rockelivery.Factory do
       password: "123456",
       name: "Matheus Campos",
       id: "ff6ceccd-9fe0-4582-8ac7-93ae76239133"
+    }
+  end
+
+  def via_cep_response_factory do
+    %ViaCepResponse{
+      city: "São Paulo",
+      uf: "SP"
     }
   end
 end
