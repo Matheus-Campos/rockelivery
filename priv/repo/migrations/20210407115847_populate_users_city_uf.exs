@@ -12,8 +12,7 @@ defmodule Rockelivery.Repo.Migrations.PopulateUsersCityUf do
   end
 
   def down do
-    query = from user in User, update: [set: [city: nil, uf: nil]]
-    Repo.update_all(query)
+    Repo.update_all(User, set: [city: nil, uf: nil])
   end
 
   defp update_city_uf(%User{cep: cep} = user) do
