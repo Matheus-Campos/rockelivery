@@ -7,6 +7,7 @@ defmodule Rockelivery.Users.Create do
 
   def call(params) do
     cep = Map.get(params, "cep")
+
     with %Changeset{valid?: true} = changeset <- User.changeset(params),
          {:ok, %User{}} <- apply_action(changeset, :create),
          {:ok, %ViaCepResponse{city: city, uf: uf}} <- via_cep_client().get_cep_info(cep),
